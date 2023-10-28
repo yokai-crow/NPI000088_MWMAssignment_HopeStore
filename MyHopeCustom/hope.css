@@ -1,0 +1,12 @@
+﻿.cust-footer-container {
+    text-align: center; /* Opt, to center-align the divs */
+}
+.cust-footer-box {
+    display: inline-block;
+    width: 30%; /* Adjusting the width as needed : for future ref arun saru */
+    margin: 10px; /* Optional margin for spacing between divs */
+    padding:2px;
+    background-color:#fbfbf9;
+    border-radius:4px;
+    /*border: 1px solid #000;  testing Optional border for visualization */
+}
