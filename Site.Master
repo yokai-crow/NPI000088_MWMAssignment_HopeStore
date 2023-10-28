@@ -64,28 +64,23 @@
             <footer>
                 <section class="cust-footer-container">
                     <section class="cust-footer-box">
-                        <ul>
-                            <li>Address</li>
-                            <li>Address</li>
-                            <li>Address</li>
-                            <li>Address</li>
-                        </ul>
+                        <p>
+                            Welcome to Hope Store Nepal, your premier destination for online shopping in the heart of the Himalayas. We're committed to bringing you the finest products, from fashion to electronics, with a focus on quality and affordability. Join us on this journey of hope, convenience, and innovation. Shop with confidence at Hope Store Nepal.
+                        </p>
                     </section>
                     <section class="cust-footer-box">
-                        <ul>
-                            <li>Address</li>
-                            <li>Address</li>
-                            <li>Address</li>
-                            <li>Address</li>
+                        <ul style="list-style-type:none; text-align:left; padding:4px 2px 2px 2px; line-height:40px;">
+                            <li><a href="mailto:hopestorenepal@gmail.com" style="text-decoration:none; color:black;">📧 Email us on 👉 hopestorenepal@gmail.com</a></li>
+                            <li><a href="tel:+9779800000000" style="text-decoration:none; color:black;">☎ Contact Us on this 👉 9800000000 number</a></li>
+                            <li style="line-height:20px;">🗺 Physical Address: Ranipauwa 11, Pokhara Metropolitan City 33700, Nepal</li>
+                            <li style="text-align:center; padding-top:10px;"><img src="./Elements/HopeLogo.png" height="55" width="130"></li>
+                            <li style="line-height:15px; text-align:center; font-family: 'Brush Script MT', cursive;" ><i>"Empowering Dreams, Connecting Lives."</i></li>
                         </ul>
                     </section>
-                    <section class="cust-footer-box">
-                        <ul>
-                            <li>Address</li>
-                            <li>Address</li>
-                            <li>Address</li>
-                            <li>Address</li>
-                        </ul>
+                    <section class="cust-footer-box" >
+                        <br>
+                        <img src="./Elements/footerLogo.png" height="150" width="150">
+                        <p style="text-align:center; text-shadow:0;"><b>Scan Me</b></p>
                     </section>
                 </section>
                 <hr>

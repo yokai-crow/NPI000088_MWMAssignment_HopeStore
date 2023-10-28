@@ -1,12 +1,30 @@
 ﻿.cust-footer-container {
-    text-align: center; /* Opt, to center-align the divs */
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    flex-wrap: wrap; /* Wrap to the next line if needed */
 }
 .cust-footer-box {
-    display: inline-block;
+    /* display: inline-block;
     width: 30%; /* Adjusting the width as needed : for future ref arun saru */
-    margin: 10px; /* Optional margin for spacing between divs */
+    flex: 1;
+    margin: 10px;
+    border-radius: 4px;
     padding:2px;
-    background-color:#fbfbf9;
-    border-radius:4px;
-    /*border: 1px solid #000;  testing Optional border for visualization */
+    background-color: #fbfbf9;
+    /*border: 1px solid #000;  testing Optional border for visualization*/
 }
+.cust-footer-box p {
+     text-align: justify;
+     padding:4px 2px 0px 2px;
+}
+
+
+/* Media Query for Mobile Screens */
+@media screen and (max-width: 768px) {
+    .cust-footer-box {
+        flex: 1 1 100%; /* Full width for mobile screens */
+        margin: 5px; /* Reduce margin for mobile screens */
+    }
+}
+
