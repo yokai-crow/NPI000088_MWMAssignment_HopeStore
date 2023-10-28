@@ -40,7 +40,7 @@
 
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" runat="server" href="~/"><img src="./Elements/HopeLogo.png" height="35" width="95"></a>
+                <a class="navbar-brand" runat="server" href="~/"><img src="./Elements/HopeLogo.png" height="35" width="95" style="border-radius:5px;"></a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

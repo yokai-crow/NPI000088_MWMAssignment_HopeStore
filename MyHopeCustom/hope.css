@@ -1,4 +1,5 @@
-﻿.cust-footer-container {
+﻿/*Site Master for navbar*/
+.cust-footer-container {
     display: flex;
     justify-content: space-between;
     text-align: center;
@@ -19,6 +20,24 @@
      padding:4px 2px 0px 2px;
 }
 
+/*Site Master for navbar End*/
+
+
+
+/*For About Page*/
+.about-bg {
+    height: auto;
+    background-color: #DFCCFB;
+    margin: 10px 10px 10px 10px;
+    padding: 20px;
+    border: 2px solid #D0BFFF;
+    border-radius: 8px;
+    box-shadow: inherit;
+    filter: drop-shadow(0 0 0.75rem crimson);
+}
+
+
+/*For About Page End*/
 
 /* Media Query for Mobile Screens */
 @media screen and (max-width: 768px) {
@@ -27,4 +46,3 @@
         margin: 5px; /* Reduce margin for mobile screens */
     }
 }
-
