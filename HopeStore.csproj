@@ -123,6 +123,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Elements\aboutBg.gif" />
+    <Content Include="MyHopeCustom\contact.css" />
+    <Content Include="MyHopeCustom\forcontact.css" />
     <Content Include="Elements\HopeLogo.png" />
     <Content Include="Elements\footerLogo.png" />
     <Content Include="favicon.ico" />
