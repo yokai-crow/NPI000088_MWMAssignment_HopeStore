@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Login" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="HopeStore.login" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <link href="./MyHopeCustom/contact.css" rel="stylesheet">
+    <link href="./MyHopeCustom/contact.css" rel="stylesheet" />
     <main aria-labelledby="title">
         <h2 id="title">Hope <%: Title %></h2>
         <style>

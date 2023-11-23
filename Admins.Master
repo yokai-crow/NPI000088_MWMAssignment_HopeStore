@@ -1,0 +1,96 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admins.master.cs" Inherits="HopeStore.Admins" %>
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Hope Store Nepal</title>
+    
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+   <!-- <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />-->
+    <link rel="icon" type="image/x-icon" href="~/Elements/HopeLogo.png">
+    <link href="~/MyHopeCustom/hope.css" rel="stylesheet">
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" runat="server" href="~/Admin/Dashboard"><img src="../Elements/HopeLogo.png" height="35" width="95" style="border-radius:6px 0px 6px 0px;"></a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-right">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Admin/Dashboard">🏠 Home</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Admin/Addproducts">📱 Add Product</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Admin/Inventory">ℹ Inventory</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Admin/Report">🧾 Report |</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Login">🔐 Login</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/">🙍‍ Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <section class="cust-footer-container">
+                    <section class="cust-footer-box">
+                        <p>
+                            Welcome to Hope Store Nepal, your premier destination for online shopping in the heart of the Himalayas. We're committed to bringing you the finest products, from fashion to electronics, with a focus on quality and affordability. Join us on this journey of hope, convenience, and innovation. Shop with confidence at Hope Store Nepal.
+                        </p>
+                    </section>
+                    <section class="cust-footer-box">
+                        <ul style="list-style-type:none; text-align:left; padding:4px 2px 2px 2px; line-height:40px;">
+                            <li><a href="mailto:hopestorenepal@gmail.com" style="text-decoration:none; color:black;">📧 Email us on 👉 hopestorenepal@gmail.com</a></li>
+                            <li><a href="tel:+9779800000000" style="text-decoration:none; color:black;">☎ Contact Us on this 👉 9800000000 number</a></li>
+                            <li style="line-height:20px;">🗺 Physical Address: Ranipauwa 11, Pokhara Metropolitan City 33700, Nepal</li>
+                            <li style="text-align:center; padding-top:10px;"><img src="../Elements/HopeLogo.png" height="55" width="130"></li>
+                            <li style="line-height:15px; text-align:center; font-family: 'Brush Script MT', cursive;" ><i>"Empowering Dreams, Connecting Lives."</i></li>
+                        </ul>
+                    </section>
+                    <section class="cust-footer-box" >
+                        <br>
+                        <img src="../Elements/footerLogo.png" height="150" width="150">
+                        <p style="text-align:center; text-shadow:0;"><b>Scan Me</b></p>
+                    </section>
+                </section>
+                <hr>
+                <p>&copy; <%: DateTime.Now.Year %> - Hope Store Nepal | Developed with ❤ by <a href="https://www.github.com/yokai-crow" style="text-decoration:none; color:black;">Arun Saru</a></p>
+            </footer>
+        </div>
+    </form>
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/Scripts/bootstrap.js") %>
+    </asp:PlaceHolder>
+</body>
+</html>
