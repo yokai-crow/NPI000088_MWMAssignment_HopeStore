@@ -51,7 +51,7 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Product">📱 Product</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/About">ℹ About</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">🧾 Contact |</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Login">🔐 Login</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/login">🔐 Login</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Signup">🙍‍ Sign Up</a></li>
                     </ul>
                 </div>

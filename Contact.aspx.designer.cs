@@ -11,7 +11,7 @@ namespace HopeStore
 {
 
 
-    public partial class Contact
+    public partial class Login
     {
     }
 }
