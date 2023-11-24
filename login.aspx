@@ -71,8 +71,9 @@
         </style>
         <div class="formbody">
             
+
             <div class="main1">
-    
+                <asp:Label ID="ErrorMessage" runat="server" ForeColor="Red" Text=""></asp:Label>
                  <form id="form" class="formclass">
                      
                     <div class="input__container">
@@ -90,7 +91,8 @@
                         <label for="Password">Password</label>
                         <input runat="server" type="password" id="Password" name="Password" required />
                      </div>
-                     <asp:Button class="formbutton" ID="loginbutton" runat="server" Text="Login" />
+                     <asp:Button class="formbutton" ID="loginbutton" runat="server" Text="Login" OnClick="loginbutton_Click" />
+
                   
                  </form>
             </div>

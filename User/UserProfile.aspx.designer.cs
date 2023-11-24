@@ -7,56 +7,74 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HopeStore
+namespace HopeStore.User
 {
 
 
-    public partial class login
+    public partial class UserProfile
     {
 
         /// <summary>
-        /// ErrorMessage control.
+        /// lblUserId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ErrorMessage;
+        protected global::System.Web.UI.WebControls.Label lblUserId;
 
         /// <summary>
-        /// usertype control.
+        /// lblUserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox usertype;
+        protected global::System.Web.UI.WebControls.Label lblUserName;
 
         /// <summary>
-        /// Email control.
+        /// lblUserEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl Email;
+        protected global::System.Web.UI.WebControls.Label lblUserEmail;
 
         /// <summary>
-        /// Password control.
+        /// lblUserType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword Password;
+        protected global::System.Web.UI.WebControls.Label lblUserType;
 
         /// <summary>
-        /// loginbutton control.
+        /// lblUserDOB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button loginbutton;
+        protected global::System.Web.UI.WebControls.Label lblUserDOB;
+
+        /// <summary>
+        /// lblUserAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUserAddress;
+
+        /// <summary>
+        /// lblUserContact control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUserContact;
     }
 }

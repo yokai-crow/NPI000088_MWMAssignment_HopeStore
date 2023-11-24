@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace HopeStore
 {
-    public partial class Admins : System.Web.UI.MasterPage
+    public partial class Users : System.Web.UI.MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -18,6 +18,7 @@ namespace HopeStore
             // End the session
             Session.Abandon();
             Session["IsAuthenticated"] = null;
+            
             // Redirect to the login page
             Response.Redirect("~/");
         }
