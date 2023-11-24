@@ -120,6 +120,8 @@
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:Button runat="server" Text="Edit" CssClass="edit-button" CommandName="Edit" CommandArgument='<%# Eval("Product_Id") %>' />
+                                
+
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField>

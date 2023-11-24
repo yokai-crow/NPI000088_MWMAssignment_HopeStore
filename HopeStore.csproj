@@ -105,6 +105,7 @@
     <Content Include="About.aspx" />
     <Content Include="Admin\Addproducts.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\EditProduct.aspx" />
     <Content Include="Admin\Inventory.aspx" />
     <Content Include="App_Data\hopedb.mdf" />
     <Content Include="App_Data\hopedb_log.ldf">
@@ -224,6 +225,13 @@
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditProduct.aspx.cs">
+      <DependentUpon>EditProduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditProduct.aspx.designer.cs">
+      <DependentUpon>EditProduct.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Inventory.aspx.cs">
       <DependentUpon>Inventory.aspx</DependentUpon>
