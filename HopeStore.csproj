@@ -170,6 +170,7 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Admins.Master" />
+    <Content Include="ImageHandler.ashx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -203,6 +204,8 @@
     <Content Include="User\UserDashboard.aspx" />
     <Content Include="User\UserProduct.aspx" />
     <Content Include="User\UserProfile.aspx" />
+    <Content Include="User\UserViewFullProduct.aspx" />
+    <Content Include="ViewFullProduct.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -340,6 +343,20 @@
     </Compile>
     <Compile Include="User\UserProfile.aspx.designer.cs">
       <DependentUpon>UserProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\UserViewFullProduct.aspx.cs">
+      <DependentUpon>UserViewFullProduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\UserViewFullProduct.aspx.designer.cs">
+      <DependentUpon>UserViewFullProduct.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewFullProduct.aspx.cs">
+      <DependentUpon>ViewFullProduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewFullProduct.aspx.designer.cs">
+      <DependentUpon>ViewFullProduct.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
