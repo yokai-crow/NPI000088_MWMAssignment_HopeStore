@@ -14,6 +14,14 @@
                 padding:5px;
             }
 
+            .profile-group-btn {
+                margin: 7px;
+                border-radius:7px;
+                
+                text-align:center;
+                padding:5px;
+            }
+
             .user-profile-container{
                   display: grid;
                   justify-content: center;
@@ -25,41 +33,50 @@
                   margin: 10px;
                   background-image:url(../Elements/profileback.jpg);
             }
+            
         </style>
         <div class="user-profile-container">
             <div class="profile-group">
-            <div class="profile-label">User ID:</div>
-            <asp:Label ID="lblUserId" runat="server" CssClass="profile-value"></asp:Label>
+                <div class="profile-label">User ID:</div>
+                <asp:Label ID="lblUserId" runat="server" CssClass="profile-value"></asp:Label>
             </div>
             
             <div class="profile-group">
-            <div class="profile-label">Full Name</div>
-            <asp:Label ID="lblUserName" runat="server" CssClass="profile-value"></asp:Label>
+                <div class="profile-label">Full Name</div>
+                <asp:Label ID="lblUserName" runat="server" CssClass="profile-value"></asp:Label>
             </div>
 
             <div class="profile-group">
-            <div class="profile-label">Email</div>
-            <asp:Label ID="lblUserEmail" runat="server" CssClass="profile-value"></asp:Label>
+                <div class="profile-label">Email</div>
+                <asp:Label ID="lblUserEmail" runat="server" CssClass="profile-value"></asp:Label>
             </div>
 
             <div class="profile-group">            
-            <div class="profile-label">User Type</div>
-            <asp:Label ID="lblUserType" runat="server" CssClass="profile-value"></asp:Label>
+                <div class="profile-label">User Type</div>
+                <asp:Label ID="lblUserType" runat="server" CssClass="profile-value"></asp:Label>
             </div>
 
             <div class="profile-group">
-            <div class="profile-label">Date of Birth</div>
-            <asp:Label ID="lblUserDOB" runat="server" CssClass="profile-value"></asp:Label>
+                <div class="profile-label">Date of Birth</div>
+                <asp:Label ID="lblUserDOB" runat="server" CssClass="profile-value"></asp:Label>
             </div>
 
             <div class="profile-group">
-            <div class="profile-label">Address</div>
-            <asp:Label ID="lblUserAddress" runat="server" CssClass="profile-value"></asp:Label>
+                <div class="profile-label">Address</div>
+                <asp:Label ID="lblUserAddress" runat="server" CssClass="profile-value"></asp:Label>
             </div>
 
             <div class="profile-group">
-            <div class="profile-label">Contact</div>
-            <asp:Label ID="lblUserContact" runat="server" CssClass="profile-value"></asp:Label>
+                <div class="profile-label">Contact</div>
+                <asp:Label ID="lblUserContact" runat="server" CssClass="profile-value"></asp:Label>
+            </div>
+            
+            <div class="profile-group-btn">
+                <asp:Button ID="btnEditProfile" runat="server" Text="Edit Profile" CssClass="btn btn-warning" OnClick="btnEditProfile_Click" />
+            </div>
+
+            <div class="profile-group-btn">
+                <asp:Button ID="btnDeleteProfile" runat="server" Text="Delete Profile" OnClientClick="return confirm('Are you sure you want to delete your profile?');" OnClick="btnDeleteProfile_Click" CssClass="btn btn-danger" />
             </div>
             
 

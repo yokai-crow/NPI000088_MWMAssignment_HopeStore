@@ -3,11 +3,11 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <style>
         .current-image {
-            max-width: 200px; /* Adjust the max-width as needed */
-            max-height: 200px; /* Adjust the max-height as needed */
+            max-width: 200px;
+            max-height: 200px; 
         }
         .form-group {
-            margin-bottom: 15px; /* Adjust the margin as needed */
+            margin-bottom: 15px; 
         }
 
         .edit-main-div{
