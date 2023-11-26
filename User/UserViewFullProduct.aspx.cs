@@ -22,9 +22,67 @@ namespace HopeStore.User
 
                     // Fetch product details based on productId and display them
                     DisplayProductDetails(productId);
+
+                    //login vaye matra button dekhaune
+                   // UpdateAddToCartButtonVisibility();
+                }
+
+                //Retrieve user email from session
+                string email = Session["CustomerUser"] as string;
+
+                if (!string.IsNullOrEmpty(email))
+                {
+                    // Get user_id based on email from the database
+                    int userId = GetUserIdByEmail(email);
+
+                    if (userId != -1)
+                    {
+                        // Assign the userId to a session variable or use it as needed
+                        Session["UserId"] = userId;
+                    }
+                    else
+                    {
+                        // Handle the case where the user_id couldn't be retrieved
+                        // You might want to redirect the user or show an error message
+                    }
+                }
+                else
+                {
+                    // Handle the case where the email is not found in the session
                 }
             }
         }
+
+
+        //extract user id from session id
+        private int GetUserIdByEmail(string email)
+        {
+            int userId = -1;
+
+            // Use your database connection and query logic here
+            string connectionString = WebConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+
+                string query = "SELECT user_id FROM tbUsers WHERE email = @Email";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Email", email);
+
+                object result = cmd.ExecuteScalar();
+
+                if (result != null)
+                {
+                    userId = Convert.ToInt32(result);
+                }
+            }
+
+            return userId;
+        }
+        
+
+        //
 
         private void DisplayProductDetails(int productId)
         {
@@ -62,6 +120,8 @@ namespace HopeStore.User
                         // Debugging statements
                         System.Diagnostics.Debug.WriteLine($"Constructed Image URL: {imageUrl}");
                     }
+                    // storing the productId in a hidden field for later use
+                    hfProductId.Value = productId.ToString();
                 }
             }
         }
@@ -87,8 +147,93 @@ namespace HopeStore.User
         // Method to check if the user is logged in
         private bool UserIsLoggedIn()
         {
-
-            return Session["UserId"] != null;
+            //jpaye tei code vayo
+            return Session["CustomerUser"] != null;
+            //return Session["UserId"] != null;
         }
+
+        //addto cart start
+
+        protected void btnAddToCart_Click(object sender, EventArgs e)
+        {
+            if (UserIsLoggedIn())
+            {
+                // Get the current user ID from the session
+                int userId = Convert.ToInt32(Session["UserId"]);
+
+                // Get product details
+                int productId = Convert.ToInt32(hfProductId.Value);
+                int quantity = Convert.ToInt32(txtQuantity.Text);
+                double price = Convert.ToDouble(lblPrice.Text);
+
+                // Calculate total cost
+                double totalCost = quantity * price;
+
+                // Save to Cart table
+                SaveToCart(userId, productId, quantity, totalCost);
+
+                // Update product quantity and display success message
+                UpdateProductAndDisplayMessage(productId, quantity);
+
+                // Clear the quantity textbox
+                txtQuantity.Text = "";
+            }
+            else
+            {
+                // User is not logged in, redirect to the login page
+                Response.Redirect("~/login.aspx");
+            }
+        }
+        private void SaveToCart(int userId, int productId, int quantity, double totalCost)
+        {
+            // Use the provided connection string
+            string connectionString = WebConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+
+                string query = "INSERT INTO Cart (user_id, product_id, quantity, total_cost) VALUES (@UserId, @ProductId, @Quantity, @TotalCost)";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@UserId", userId);
+                cmd.Parameters.AddWithValue("@ProductId", productId);
+                cmd.Parameters.AddWithValue("@Quantity", quantity);
+                cmd.Parameters.AddWithValue("@TotalCost", totalCost);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private void UpdateProductAndDisplayMessage(int productId, int quantity)
+        {
+            // Use the provided connection string
+            string connectionString = WebConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+
+                // Update product quantity
+                string updateQuery = "UPDATE Products SET Quantity = Quantity - @Quantity WHERE Product_Id = @ProductId";
+                SqlCommand updateCmd = new SqlCommand(updateQuery, con);
+                updateCmd.Parameters.AddWithValue("@Quantity", quantity);
+                updateCmd.Parameters.AddWithValue("@ProductId", productId);
+
+                updateCmd.ExecuteNonQuery();
+
+                // Display success message (you can customize this part)
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Product added to cart.'); window.location='" + ResolveUrl("~/User/Cart.aspx") + "';", true);
+
+            }
+
+        }
+
+        private void UpdateAddToCartButtonVisibility()
+        {
+            btnAddToCart.Visible = UserIsLoggedIn();
+        }
+
+        //addtocart end
+
     }
 }

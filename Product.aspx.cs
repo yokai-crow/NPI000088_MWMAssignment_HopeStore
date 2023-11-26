@@ -46,30 +46,37 @@ namespace HopeStore
                 // Apply search filter if provided
                 if (!string.IsNullOrEmpty(searchKeyword))
                 {
-                    query += $" WHERE Name LIKE '%{searchKeyword}%'";
+                    query += " WHERE Name LIKE @SearchKeyword";
                 }
 
-                SqlCommand cmd = new SqlCommand(query, con);
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                using (SqlCommand cmd = new SqlCommand(query, con))
                 {
-                    while (reader.Read())
+                    // Add parameter if search keyword is provided
+                    if (!string.IsNullOrEmpty(searchKeyword))
                     {
-                        ProductItem product = new ProductItem
+                        cmd.Parameters.AddWithValue("@SearchKeyword", $"%{searchKeyword}%");
+                    }
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
                         {
-                            ProductId = Convert.ToInt32(reader["Product_Id"]),
-                            Name = Convert.ToString(reader["Name"]),
-                            Price = Convert.ToDouble(reader["Price"]),
-                            ImagePath = Convert.ToString(reader["Image"]),
-                        };
+                            ProductItem product = new ProductItem
+                            {
+                                ProductId = Convert.ToInt32(reader["Product_Id"]),
+                                Name = Convert.ToString(reader["Name"]),
+                                Price = Convert.ToDouble(reader["Price"]),
+                                ImagePath = Convert.ToString(reader["Image"]),
+                            };
 
-                        // Constructing the correct image URL
-                        product.ImagePath = $"~/Images/{product.ImagePath}";
+                            // Constructing the correct image URL
+                            product.ImagePath = $"~/Images/{product.ImagePath}";
 
-                        // construct the ProductUrl based on the ProductId
-                        product.ProductUrl = $"ProductDetails.aspx?ProductId={product.ProductId}";
+                            // construct the ProductUrl based on the ProductId
+                            product.ProductUrl = $"ProductDetails.aspx?ProductId={product.ProductId}";
 
-                        products.Add(product);
+                            products.Add(product);
+                        }
                     }
                 }
             }

@@ -200,6 +200,7 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Signup.aspx" />
     <Content Include="Site.Master" />
+    <Content Include="User\Cart.aspx" />
     <Content Include="User\EditProfile.aspx" />
     <Content Include="User\UserDashboard.aspx" />
     <Content Include="User\UserProduct.aspx" />
@@ -315,6 +316,13 @@
     </Compile>
     <Compile Include="Users.Master.designer.cs">
       <DependentUpon>Users.Master</DependentUpon>
+    </Compile>
+    <Compile Include="User\Cart.aspx.cs">
+      <DependentUpon>Cart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Cart.aspx.designer.cs">
+      <DependentUpon>Cart.aspx</DependentUpon>
     </Compile>
     <Compile Include="User\EditProfile.aspx.cs">
       <DependentUpon>EditProfile.aspx</DependentUpon>

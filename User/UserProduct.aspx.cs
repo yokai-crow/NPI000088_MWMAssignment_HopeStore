@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.UI;
@@ -13,15 +12,12 @@ namespace HopeStore.User
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!IsPostBack)
             {
-
                 BindFeaturedProducts();
-
             }
-
         }
+
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             BindProducts(txtSearch.Text);
@@ -49,37 +45,43 @@ namespace HopeStore.User
                 // Apply search filter if provided
                 if (!string.IsNullOrEmpty(searchKeyword))
                 {
-                    query += $" WHERE Name LIKE '%{searchKeyword}%'";
+                    query += " WHERE Name LIKE @SearchKeyword";
                 }
 
-                SqlCommand cmd = new SqlCommand(query, con);
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                using (SqlCommand cmd = new SqlCommand(query, con))
                 {
-                    while (reader.Read())
+                    // Add parameter if search keyword is provided
+                    if (!string.IsNullOrEmpty(searchKeyword))
                     {
-                        ProductItem product = new ProductItem
+                        cmd.Parameters.AddWithValue("@SearchKeyword", $"%{searchKeyword}%");
+                    }
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
                         {
-                            ProductId = Convert.ToInt32(reader["Product_Id"]),
-                            Name = Convert.ToString(reader["Name"]),
-                            Price = Convert.ToDouble(reader["Price"]),
-                            ImagePath = Convert.ToString(reader["Image"]),
-                        };
+                            ProductItem product = new ProductItem
+                            {
+                                ProductId = Convert.ToInt32(reader["Product_Id"]),
+                                Name = Convert.ToString(reader["Name"]),
+                                Price = Convert.ToDouble(reader["Price"]),
+                                ImagePath = Convert.ToString(reader["Image"]),
+                            };
 
-                        // Constructing the correct image URL
-                        product.ImagePath = $"~/Images/{product.ImagePath}";
+                            // Constructing the correct image URL
+                            product.ImagePath = $"~/Images/{product.ImagePath}";
 
-                        // construct the ProductUrl based on the ProductId
-                        product.ProductUrl = $"ProductDetails.aspx?ProductId={product.ProductId}";
+                            // construct the ProductUrl based on the ProductId
+                            product.ProductUrl = $"ProductDetails.aspx?ProductId={product.ProductId}";
 
-                        products.Add(product);
+                            products.Add(product);
+                        }
                     }
                 }
             }
 
             return products;
         }
-
 
         private void BindFeaturedProducts()
         {
@@ -109,27 +111,29 @@ namespace HopeStore.User
 
                 // Use ORDER BY NEWID() to get random order
                 string query = "SELECT TOP 6 Product_Id, Name, Price, Image FROM Products ORDER BY NEWID()";
-                SqlCommand cmd = new SqlCommand(query, con);
 
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                using (SqlCommand cmd = new SqlCommand(query, con))
                 {
-                    while (reader.Read())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        ProductItem product = new ProductItem
+                        while (reader.Read())
                         {
-                            ProductId = Convert.ToInt32(reader["Product_Id"]),
-                            Name = Convert.ToString(reader["Name"]),
-                            Price = Convert.ToDouble(reader["Price"]),
-                            ImagePath = Convert.ToString(reader["Image"]),
-                        };
+                            ProductItem product = new ProductItem
+                            {
+                                ProductId = Convert.ToInt32(reader["Product_Id"]),
+                                Name = Convert.ToString(reader["Name"]),
+                                Price = Convert.ToDouble(reader["Price"]),
+                                ImagePath = Convert.ToString(reader["Image"]),
+                            };
 
-                        // Constructing the correct image URL
-                        product.ImagePath = $"~/Images/{product.ImagePath}"; // Adjust the folder path accordingly
+                            // Constructing the correct image URL
+                            product.ImagePath = $"~/Images/{product.ImagePath}";
 
-                        // construct the ProductUrl based on the ProductId
-                        product.ProductUrl = $"ProductDetails.aspx?ProductId={product.ProductId}";
+                            // construct the ProductUrl based on the ProductId
+                            product.ProductUrl = $"ProductDetails.aspx?ProductId={product.ProductId}";
 
-                        products.Add(product);
+                            products.Add(product);
+                        }
                     }
                 }
             }
