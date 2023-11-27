@@ -129,13 +129,23 @@ namespace HopeStore.User
 
         protected void btnBuy_Click(object sender, EventArgs e)
         {
-            //dont need to buy for public user without account
+            // Check if the user is logged in
             if (UserIsLoggedIn())
             {
+                // Get the current user ID from the session
+                int userId = Convert.ToInt32(Session["UserId"]);
 
+                // Get the product ID from the hidden field
+                int productId = Convert.ToInt32(hfProductId.Value);
+
+                // Get the selected quantity (you may need to validate this input)
                 int quantity = Convert.ToInt32(txtQuantity.Text);
 
-                //yesma buy garne code parxa
+                // Call a method to perform the purchase logic
+                ProcessPurchase(userId, productId, quantity);
+
+                // Optionally, redirect or provide feedback to the user
+                Response.Redirect("~/User/ShoppingHistory.aspx");
             }
             else
             {
@@ -143,6 +153,7 @@ namespace HopeStore.User
                 Response.Redirect("~/login.aspx");
             }
         }
+
 
         // Method to check if the user is logged in
         private bool UserIsLoggedIn()
@@ -221,7 +232,7 @@ namespace HopeStore.User
 
                 updateCmd.ExecuteNonQuery();
 
-                // Display success message (you can customize this part)
+                // Display success message 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Product added to cart.'); window.location='" + ResolveUrl("~/User/Cart.aspx") + "';", true);
 
             }
@@ -234,6 +245,91 @@ namespace HopeStore.User
         }
 
         //addtocart end
+
+
+        //buy
+
+        private void ProcessPurchase(int userId, int productId, int quantity)
+        {
+          
+            string connectionString = WebConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+
+                // database transaction (for data consistency)
+                SqlTransaction transaction = con.BeginTransaction();
+
+                try
+                {
+                    // Call a method to update the product quantity and retrieve the price
+                    double price = UpdateProductAndRetrievePrice(transaction, productId, quantity);
+
+                    // Calculate total cost
+                    double totalCost = quantity * price;
+
+                    // Call a method to insert an order record into the OrderHistory table
+                    InsertOrderRecord(transaction, userId, productId, quantity, totalCost);
+
+                    // Commit the transaction
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    // An error occurred, rollback the transaction
+                    transaction.Rollback();
+
+                    // Handle the error paxi
+                    // For now, rethrow the exception 
+                    throw ex;
+                }
+            }
+        }
+
+        private double UpdateProductAndRetrievePrice(SqlTransaction transaction, int productId, int quantity)
+        {
+           
+            string updateQuery = "UPDATE Products SET Quantity = Quantity - @Quantity WHERE Product_Id = @ProductId";
+            using (SqlCommand updateCmd = new SqlCommand(updateQuery, transaction.Connection, transaction))
+            {
+                updateCmd.Parameters.AddWithValue("@Quantity", quantity);
+                updateCmd.Parameters.AddWithValue("@ProductId", productId);
+
+                // Execute the update query
+                updateCmd.ExecuteNonQuery();
+            }
+
+            
+            string selectQuery = "SELECT Price FROM Products WHERE Product_Id = @ProductId";
+            using (SqlCommand selectCmd = new SqlCommand(selectQuery, transaction.Connection, transaction))
+            {
+                selectCmd.Parameters.AddWithValue("@ProductId", productId);
+
+            
+                return Convert.ToDouble(selectCmd.ExecuteScalar());
+            }
+        }
+
+        private void InsertOrderRecord(SqlTransaction transaction, int userId, int productId, int quantity, double totalCost)
+        {
+            
+            string insertQuery = "INSERT INTO OrderHistory (user_id, ProductId, Quantity, TotalPrice, DeliveryStatus, OrderDate) " +
+                                 "VALUES (@UserId, @ProductId, @Quantity, @TotalPrice, 'Pending', GETDATE())";
+            using (SqlCommand insertCmd = new SqlCommand(insertQuery, transaction.Connection, transaction))
+            {
+                insertCmd.Parameters.AddWithValue("@UserId", userId);
+                insertCmd.Parameters.AddWithValue("@ProductId", productId);
+                insertCmd.Parameters.AddWithValue("@Quantity", quantity);
+                insertCmd.Parameters.AddWithValue("@TotalPrice", totalCost);
+
+               
+                insertCmd.ExecuteNonQuery();
+            }
+        }
+
+
+        //
 
     }
 }

@@ -13,7 +13,7 @@
                     <p class="lead">Price: रु <asp:Label ID="lblPrice" runat="server" /></p>
                     <p>Category: <asp:Label ID="lblCategory" runat="server" /></p>
                     <p>Description: <asp:Label ID="lblDescription" runat="server" /></p>
-                    <!-- controls for errormess and quantity -->
+                    
                     
                     
                     <div class="input-group mb-3">

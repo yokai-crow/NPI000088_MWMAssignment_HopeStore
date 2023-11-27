@@ -202,6 +202,7 @@
     <Content Include="Site.Master" />
     <Content Include="User\Cart.aspx" />
     <Content Include="User\EditProfile.aspx" />
+    <Content Include="User\ShoppingHistory.aspx" />
     <Content Include="User\UserDashboard.aspx" />
     <Content Include="User\UserProduct.aspx" />
     <Content Include="User\UserProfile.aspx" />
@@ -330,6 +331,13 @@
     </Compile>
     <Compile Include="User\EditProfile.aspx.designer.cs">
       <DependentUpon>EditProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\ShoppingHistory.aspx.cs">
+      <DependentUpon>ShoppingHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\ShoppingHistory.aspx.designer.cs">
+      <DependentUpon>ShoppingHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="User\UserDashboard.aspx.cs">
       <DependentUpon>UserDashboard.aspx</DependentUpon>
