@@ -54,7 +54,7 @@ namespace HopeStore.User
         {
             int userId = -1;
 
-            // Use your database connection and query logic here
+           
             string connectionString = WebConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
 
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -77,14 +77,14 @@ namespace HopeStore.User
         }
         private void FetchCartItems(int userId)
         {
-            // Use the provided connection string
+          
             string connectionString = WebConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
 
-                // Query to retrieve cart items for the current user
+              
                 string query = "SELECT Cart.cart_id, Products.Product_Id, Products.Name, Products.Category, " +
                                "Products.Description, Cart.Quantity, Cart.Total_Cost " +
                                "FROM Cart " +
@@ -118,17 +118,17 @@ namespace HopeStore.User
         {
             int cartId = Convert.ToInt32(e.CommandArgument);
 
-            // Show confirmation dialog before removing (you can skip this if you don't need confirmation)
+            // Show confirmation dialog before removing
             string removeScript = $"confirmRemove('{cartId}');";
             ScriptManager.RegisterStartupScript(this, GetType(), "RemoveConfirmation", removeScript, true);
 
-           
+
             RemoveCartItem(cartId);
         }
 
         private void RemoveCartItem(int cartId)
         {
-            // Use your actual connection string
+            
             string connectionString = WebConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
 
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -151,16 +151,84 @@ namespace HopeStore.User
             // Retrieve cart ID from the hidden field
             int cartId = Convert.ToInt32(hfCartId.Value);
 
-            // Call your server-side removal logic
+            // server-side removal logic
             RemoveCartItem(cartId);
 
             // Refresh cart items
             FetchCartItems(Convert.ToInt32(Session["UserId"]));
         }
 
+        protected void btnBuyHidden_Click(object sender, EventArgs e)
+        {
+            int userId = Convert.ToInt32(Session["UserId"]);
+            int productId = Convert.ToInt32(hfProductId.Value);
+            int quantity = Convert.ToInt32(hfQuantity.Value);
+            decimal totalCost = Convert.ToDecimal(hfTotalCost.Value);
 
+            // Call a method to add the order to the OrderHistory table
+            AddOrderToHistory(userId, productId, quantity, totalCost);
+
+            // Call a method to remove the purchased items from the Cart table
+            RemovePurchasedItems(userId, productId);
+
+            // Optionally, refresh the cart items or provide feedback to the user
+            FetchCartItems(userId);
+
+            // Show success message
+            lblSuccessMessage.Text = "Items brought successfully!";
+            lblSuccessMessage.Visible = true;
+        }
+
+
+        private void RemovePurchasedItems(int userId, int productId)
+        {
+          
+            string connectionString = WebConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+
+                // Query to delete purchased items from the Cart table
+                string query = "DELETE FROM Cart WHERE user_id = @UserId AND Product_Id = @ProductId";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@UserId", userId);
+                cmd.Parameters.AddWithValue("@ProductId", productId);
+
+                // Execute the query
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+
+        private void AddOrderToHistory(int userId, int productId, int quantity, decimal totalCost)
+        {
+            
+            string connectionString = WebConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+
+               
+                string query = "INSERT INTO OrderHistory (user_id, ProductId, Quantity, TotalPrice, DeliveryStatus, OrderDate) " +
+                               "VALUES (@UserId, @ProductId, @Quantity, @TotalPrice, 'Pending', GETDATE())";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@UserId", userId);
+                cmd.Parameters.AddWithValue("@ProductId", productId);
+                cmd.Parameters.AddWithValue("@Quantity", quantity);
+                cmd.Parameters.AddWithValue("@TotalPrice", totalCost);
+
+                // Execute the query
+                cmd.ExecuteNonQuery();
+            }
+        }
 
         //
+
+
 
 
 

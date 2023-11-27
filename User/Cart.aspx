@@ -4,6 +4,10 @@
     <main aria-labelledby="title" class="container mt-5">
         <h2 id="title">Your Cart</h2>
 
+        <div style="text-align:center; margin-bottom:5px;">
+        <asp:Label ID="lblSuccessMessage" runat="server" CssClass="text-success" EnableViewState="false" Visible="false"></asp:Label>
+        </div>
+        
         <asp:Repeater ID="rptCartItems" runat="server">
             <ItemTemplate>
                 <div class="card mb-3">
@@ -19,8 +23,14 @@
                                 <p class="card-text">Quantity: <%# Eval("Quantity") %></p>
                                 <p class="card-text">Total Cost: रु <%# Eval("Total_Cost", "{0:N2}") %></p>
 
+
+                                <asp:Button ID="btnBuy" runat="server" Text="Buy Now" CssClass="btn btn-success"
+            OnClientClick='<%# "buyProduct(" + Eval("Product_Id") + "," + Eval("Quantity") + "," + Eval("Total_Cost") + "); return false;" %>' />
+
                                 <asp:Button ID="btnRemoveItem" runat="server" Text="Remove from Cart" CssClass="btn btn-danger"
                                     OnClientClick='<%# "confirmRemove(" + Eval("cart_id") + "); return false;" %>' />
+                            
+                                
                             </div>
                         </div>
                     </div>
@@ -29,16 +39,29 @@
         </asp:Repeater>
 
         <script type="text/javascript">
+
+            function buyProduct(productId, quantity, totalCost) {
+                var confirmResult = confirm('Are you sure you want to buy this product?');
+                if (confirmResult) {
+                    // If the user clicks OK, perform the purchase logic on the client-side
+                    // use a hidden field to store product details and trigger a postback
+                    document.getElementById('<%= hfProductId.ClientID %>').value = productId;
+            document.getElementById('<%= hfQuantity.ClientID %>').value = quantity;
+            document.getElementById('<%= hfTotalCost.ClientID %>').value = totalCost;
+                    document.getElementById('<%= btnBuyHidden.ClientID %>').click();
+                } else {
+                    // If the user clicks Cancel, do nothing 
+                }
+            }
+
             function confirmRemove(cartId) {
                 var confirmResult = confirm('Are you sure you want to remove this product from the cart?');
                 if (confirmResult) {
-                    // If the user clicks OK, perform the removal logic on the client-side
-                    // You can also consider calling a server-side method using AJAX for removal
-                    // Here, we'll use a hidden field to store the cart ID and trigger a postback
+                    
                     document.getElementById('<%= hfCartId.ClientID %>').value = cartId;
                     document.getElementById('<%= btnHidden.ClientID %>').click();
                 } else {
-                    // If the user clicks Cancel, do nothing or provide feedback
+                    
                 }
             }
         </script>
@@ -46,5 +69,15 @@
         <!-- Hidden Button and Field for Server-Side Handling -->
         <asp:Button ID="btnHidden" runat="server" Style="display: none" OnClick="btnHidden_Click" />
         <asp:HiddenField ID="hfCartId" runat="server" />
+
+        <!-- Hidden Button and Fields for Server-Side Handling -->
+        <asp:Button ID="Button1" runat="server" Style="display: none" OnClick="btnHidden_Click" />
+        <asp:Button ID="btnBuyHidden" runat="server" Style="display: none" OnClick="btnBuyHidden_Click" />
+        <asp:HiddenField ID="HiddenField1" runat="server" />
+        <asp:HiddenField ID="hfProductId" runat="server" />
+        <asp:HiddenField ID="hfQuantity" runat="server" />
+        <asp:HiddenField ID="hfTotalCost" runat="server" />
+
+
     </main>
 </asp:Content>
