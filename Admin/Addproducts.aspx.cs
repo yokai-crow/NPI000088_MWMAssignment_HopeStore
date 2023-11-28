@@ -53,7 +53,7 @@ namespace HopeStore.Admin
 
                         using (SqlCommand cmd = new SqlCommand(query, con))
                         {
-                            // Assuming other variables (Pd_Name, Pd_Category, Pd_Price, Pd_Quantity, and Pd_Description) are declared and initialized elsewhere
+                            
                             cmd.Parameters.AddWithValue("@Name", Pd_Name.Value);
                             cmd.Parameters.AddWithValue("@Category", Pd_Category.Value);
                             cmd.Parameters.AddWithValue("@Price", Convert.ToDecimal(Pd_Price.Value));
@@ -89,7 +89,7 @@ namespace HopeStore.Admin
                     lblSuccessMessage.Text = "Product Successfully Added.";
                     lblSuccessMessage.Visible = true;
 
-                    // Redirect to another page after a delay (e.g., 2 seconds)
+                    // Redirect to another page after a delay 2000=2sec ho
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "redirectScript", "setTimeout(function(){ window.location.href = 'Addproducts.aspx'; }, 2000);", true);
                 }
             }

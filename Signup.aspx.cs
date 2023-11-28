@@ -58,7 +58,7 @@ namespace HopeStore
                         // Handle invalid date format
                         Response.Write("Invalid date format for Date of Birth. Please enter a valid date.");
                         return;
-                        // You might want to show an error message or log the issue
+                        
                     }
 
                     cmd.Parameters.AddWithValue("@Address", Address.Value);    //  Address is an HtmlInputText

@@ -62,7 +62,7 @@ namespace HopeStore.User
             }
             catch (Exception ex)
             {
-                // Handle exceptions (e.g., log the error) later
+                
             }
         }
         protected void btnEditProfile_Click(object sender, EventArgs e)

@@ -32,18 +32,17 @@ namespace HopeStore.User
 
                 if (!string.IsNullOrEmpty(email))
                 {
-                    // Get user_id based on email from the database
+                   
                     int userId = GetUserIdByEmail(email);
 
                     if (userId != -1)
                     {
-                        // Assign the userId to a session variable or use it as needed
+                    
                         Session["UserId"] = userId;
                     }
                     else
                     {
-                        // Handle the case where the user_id couldn't be retrieved
-                        // You might want to redirect the user or show an error message
+                        
                     }
                 }
                 else

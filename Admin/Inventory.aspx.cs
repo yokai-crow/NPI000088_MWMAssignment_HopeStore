@@ -43,7 +43,7 @@ namespace HopeStore.Admin
             }
             catch (Exception ex)
             {
-                // Handle exceptions (e.g., log the error)
+                
             }
         }
 
@@ -58,7 +58,7 @@ namespace HopeStore.Admin
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
+                
             }
         }
 
@@ -84,7 +84,7 @@ namespace HopeStore.Admin
                 btnEdit.CommandName = "Edit";
                 btnEdit.CommandArgument = DataBinder.Eval(e.Row.DataItem, "Product_Id").ToString();
 
-                // Add client-side script to prevent automatic postback
+                // Add client-side script to prevent automatic postback dherai chainxa :)
                 btnEdit.Attributes.Add("onclick", "return false;");
 
                 e.Row.Cells[6].Controls.Add(btnEdit);
@@ -112,7 +112,7 @@ namespace HopeStore.Admin
             // Access the Product ID from the selected row
             string productId = Inventory_GridView.SelectedRow.Cells[0].Text;
 
-            // You can now use the productId as needed, e.g., for deletion
+            
             DeleteProduct(productId);
 
             // Re-populate the table after deletion
@@ -137,7 +137,7 @@ namespace HopeStore.Admin
             }
             catch (Exception ex)
             {
-                // Handle exceptions (e.g., log the error)
+                
             }
         }
 
@@ -208,7 +208,7 @@ namespace HopeStore.Admin
             }
             catch (Exception ex)
             {
-                // Handle exceptions (e.g., log the error)
+               
             }
         }
 

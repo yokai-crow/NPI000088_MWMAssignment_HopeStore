@@ -23,7 +23,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
-            border: 2px solid #ddd; /* Add border to the table */
+            border: 2px solid #ddd; 
         }
 
         #Inventory_GridView th, #Inventory_GridView td {
@@ -37,11 +37,11 @@
         }
 
         #Inventory_GridView tbody tr:nth-child(even) {
-            background-color: #f9f9f9; /* Zebra stripe style for even rows */
+            background-color: #f9f9f9; 
         }
 
         #Inventory_GridView tbody tr:nth-child(odd) {
-            background-color: #ffffff; /* Zebra stripe style for odd rows */
+            background-color: #ffffff; 
         }
 
         #searchBar {
@@ -49,25 +49,25 @@
             justify-content: inherit;
         }
 
-        /* Styles for the edit button */
+   
         .edit-button {
             background-color: yellow;
-            color: black; /* Text color */
+            color: black; 
             border: none;
             padding: 5px 10px;
             cursor: pointer;
             border-radius:7px;
         }
 
-        /*   style for selected row */
+       
         .selected-row {
             background-color: #a6a6a6;
         }
 
-        /* Styles for the delete button */
+        
         .delete-button {
             background-color: red;
-            color: white; /* Text color */
+            color: white; 
             border: none;
             padding: 5px 10px;
             cursor: pointer;
@@ -75,16 +75,16 @@
         }
 
         #Inventory_GridView tbody tr:nth-child(even) {
-             background-color: #f2f2f2; /* Zebra stripe style for even rows */
+             background-color: #f2f2f2; 
         }
 
         #Inventory_GridView tbody tr:nth-child(odd) {
-            background-color: #ffffff; /* Zebra stripe style for odd rows */
+            background-color: #ffffff; 
         }
     </style>
 
     <script type="text/javascript">
-        // Add this script to handle row selection
+        
         function SelectRow(row) {
             if (row.className === "selected-row") {
                 row.className = "";

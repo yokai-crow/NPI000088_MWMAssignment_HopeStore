@@ -63,7 +63,7 @@ namespace HopeStore.User
                         };
 
                         // Constructing the correct image URL
-                        product.ImagePath = $"~/Images/{product.ImagePath}"; // Adjust the folder path accordingly
+                        product.ImagePath = $"~/Images/{product.ImagePath}"; 
 
                         // construct the ProductUrl based on the ProductId
                         product.ProductUrl = $"ProductDetails.aspx?ProductId={product.ProductId}";

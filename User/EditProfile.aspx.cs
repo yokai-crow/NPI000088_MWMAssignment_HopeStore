@@ -22,8 +22,7 @@ namespace HopeStore.User
 
             if (!string.IsNullOrEmpty(userEmail))
             {
-                // Use the userEmail to fetch user details from the database
-                // Customize the query based on your database structure
+             
                 string connectionString = WebConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
 
                 using (SqlConnection con = new SqlConnection(connectionString))

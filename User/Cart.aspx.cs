@@ -26,13 +26,13 @@ namespace HopeStore.User
                 }
                 else
                 {
-                    // Handle the case where the user_id couldn't be retrieved
+                    
 
                 }
             }
             else
             {
-                // Handle the case where the email is not found in the session
+                
             }
 
             // Check if the user is logged in
