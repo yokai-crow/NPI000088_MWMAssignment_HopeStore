@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using System.Web.UI.WebControls;
+using System.Web.UI;
 
 namespace HopeStore.User
 {
@@ -76,11 +78,11 @@ namespace HopeStore.User
             {
                 con.Open();
 
-                
-                string query = "SELECT OH.ProductId, P.Name AS ProductName, P.Category, P.Description, OH.Quantity, OH.DeliveryStatus, OH.OrderDate, P.Price AS UnitPrice, OH.TotalPrice " +
-                               "FROM OrderHistory OH " +
-                               "INNER JOIN Products P ON OH.ProductId = P.Product_Id " +
-                               "WHERE OH.user_id = @UserId";
+
+                string query = "SELECT OH.order_id, OH.ProductId, P.Name AS ProductName, P.Category, P.Description, OH.Quantity, OH.DeliveryStatus, OH.OrderDate, P.Price AS UnitPrice, OH.TotalPrice " +
+                 "FROM OrderHistory OH " +
+                 "INNER JOIN Products P ON OH.ProductId = P.Product_Id " +
+                 "WHERE OH.user_id = @UserId";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@UserId", userId);
@@ -98,5 +100,49 @@ namespace HopeStore.User
         {
             return $"../ImageHandler.ashx?ProductId={productId}";
         }
+
+
+        //
+
+
+
+        // Add the following code to handle the cancel order logic
+
+        protected void btnHiddenCancelOrder_Click(object sender, EventArgs e)
+        {
+            // Retrieve order ID from the hidden field
+            int orderId = Convert.ToInt32(hfCancelOrderId.Value);
+
+            // Server-side cancellation logic
+            CancelOrder(orderId);
+
+            // Refresh shopping history
+            FetchShoppingHistory(Convert.ToInt32(Session["UserId"]));
+        }
+
+        private void CancelOrder(int orderId)
+        {
+            // Use your actual SQL delete statement to remove the order from the OrderHistory table
+            string connectionString = WebConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+
+                string query = "DELETE FROM OrderHistory WHERE user_id = @UserId AND order_id = @OrderId";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@UserId", Convert.ToInt32(Session["UserId"]));
+                cmd.Parameters.AddWithValue("@OrderId", orderId);
+
+                // Execute the query
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+
+
+
+
+        //
     }
 }
