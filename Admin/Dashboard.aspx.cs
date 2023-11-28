@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 
 namespace HopeStore.Admin
@@ -15,6 +14,75 @@ namespace HopeStore.Admin
             {
                 Response.Redirect("~/Login.aspx");
             }
+
+            
+            if (!IsPostBack)
+            {
+                BindOrderHistoryData();
+            }
         }
+
+        private void BindOrderHistoryData()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+
+                string query = "SELECT * FROM OrderHistory WHERE deliverystatus <> 'Received'";
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    gvOrderHistory.DataSource = dt;
+                    gvOrderHistory.DataBind();
+                }
+            }
+        }
+
+
+        protected void gvOrderHistory_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Deliver")
+            {
+                
+                int orderId = Convert.ToInt32(e.CommandArgument);
+
+                
+                UpdateDeliveryStatus(orderId);
+
+               
+                BindOrderHistoryData();
+            }
+        }
+
+        private void UpdateDeliveryStatus(int orderId)
+        {
+            
+            string connectionString = ConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
+
+           
+            string updateQuery = "UPDATE OrderHistory SET deliverystatus = 'Received' WHERE order_id = @OrderId";
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+
+                using (SqlCommand cmd = new SqlCommand(updateQuery, con))
+                {
+                    
+                    cmd.Parameters.AddWithValue("@OrderId", orderId);
+
+                   
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
     }
+
 }

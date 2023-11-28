@@ -106,7 +106,7 @@ namespace HopeStore.User
 
 
 
-        // Add the following code to handle the cancel order logic
+        
 
         protected void btnHiddenCancelOrder_Click(object sender, EventArgs e)
         {
@@ -122,7 +122,7 @@ namespace HopeStore.User
 
         private void CancelOrder(int orderId)
         {
-            // Use your actual SQL delete statement to remove the order from the OrderHistory table
+          
             string connectionString = WebConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
 
             using (SqlConnection con = new SqlConnection(connectionString))
