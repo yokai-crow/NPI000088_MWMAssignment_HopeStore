@@ -154,7 +154,7 @@ namespace HopeStore.Admin
             }
             catch (Exception ex)
             {
-                // Handle the exception (e.g., log the error)
+                // Handle the exception 
                 return null;
             }
         }
@@ -169,7 +169,7 @@ namespace HopeStore.Admin
             }
             catch (Exception ex)
             {
-                // Handle exceptions (e.g., log the error)
+                // Handle exceptions 
                 return null;
             }
         }

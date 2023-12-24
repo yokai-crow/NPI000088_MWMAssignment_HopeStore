@@ -17,13 +17,21 @@
                             <div class="card-body">
                                 <h5 class="card-title"><%# Eval("Name") %></h5>
                                 <p class="card-text">Price: रु <%# Eval("Price", "{0:N2}") %></p>
+
+                                <p class="card-text">Rating: <%# Eval("Rating") != null ? Eval("Rating") : "N/A" %></p>
+
+
+                               
+                
+                                
+
                             </div>
                         </div>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
 
-
+              
 
         </div>
     </main>

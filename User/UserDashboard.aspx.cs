@@ -7,6 +7,7 @@ using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 namespace HopeStore.User
 {
     public partial class UserDashboard : System.Web.UI.Page
@@ -34,6 +35,8 @@ namespace HopeStore.User
             public double Price { get; set; }
             public string ImagePath { get; set; }
             public string ProductUrl { get; set; }
+
+            public int? Rating { get; set; }
         }
 
         private List<Product> GetFeaturedProductsFromDatabase()
@@ -47,7 +50,10 @@ namespace HopeStore.User
                 con.Open();
 
                 // Use ORDER BY NEWID() to get random order
-                string query = "SELECT TOP 6 Product_Id, Name, Price, Image FROM Products ORDER BY NEWID()";
+                //string query = "SELECT TOP 6 Product_Id, Name, Price, Image FROM Products ORDER BY NEWID()";
+                string query = "SELECT TOP 6 Product_Id, Name, Price, Image, Rating FROM Products ORDER BY NEWID()";
+
+
                 SqlCommand cmd = new SqlCommand(query, con);
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -60,6 +66,7 @@ namespace HopeStore.User
                             Name = Convert.ToString(reader["Name"]),
                             Price = Convert.ToDouble(reader["Price"]),
                             ImagePath = Convert.ToString(reader["Image"]),
+                            Rating = reader["Rating"] != DBNull.Value ? (int?)Convert.ToInt32(reader["Rating"]) : null,
                         };
 
                         // Constructing the correct image URL
@@ -87,5 +94,12 @@ namespace HopeStore.User
                 Response.Redirect($"ViewFullProduct.aspx?ProductId={productId}");
             }
         }
+
+
+       
+
+
+
+
     }
 }

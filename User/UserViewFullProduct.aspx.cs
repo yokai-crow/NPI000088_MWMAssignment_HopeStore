@@ -79,7 +79,7 @@ namespace HopeStore.User
 
             return userId;
         }
-        
+
 
         //
 
@@ -88,11 +88,14 @@ namespace HopeStore.User
             // Use the provided connection string
             string connectionString = WebConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
 
+            // Declare imageUrl outside the if block
+            string imageUrl = "";
+
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
 
-                string query = "SELECT Product_Id, Name, Price, Category, Description, Image FROM Products WHERE Product_Id = @ProductId";
+                string query = "SELECT Product_Id, Name, Price, Category, Description, Image, Rating FROM Products WHERE Product_Id = @ProductId";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@ProductId", productId);
 
@@ -107,23 +110,39 @@ namespace HopeStore.User
                         lblDescription.Text = Convert.ToString(reader["Description"]);
 
                         // Retrieve the binary image data
-                        byte[] imageBytes = (byte[])reader["Image"];
+                        byte[] imageBytes = reader["Image"] as byte[];
 
                         // Convert the binary data to a Base64 string for display
-                        string base64String = Convert.ToBase64String(imageBytes);
-                        string imageUrl = $"data:image;base64,{base64String}";
+                        if (imageBytes != null && imageBytes.Length > 0)
+                        {
+                            imageUrl = $"data:image;base64,{Convert.ToBase64String(imageBytes)}";
 
-                        // Set the ImageUrl for the Image control
-                        ProductImage.ImageUrl = imageUrl;
+                            // Set the ImageUrl for the Image control
+                            ProductImage.ImageUrl = imageUrl;
+                        }
+
+                        // Display the current product rating
+                        object ratingObj = reader["Rating"];
+                        if (ratingObj != DBNull.Value)
+                        {
+                            double rating = Convert.ToDouble(ratingObj);
+                            lblRating.Text = $"Rating: {rating}/5";
+                        }
+                        else
+                        {
+                            lblRating.Text = "Rating: N/A";
+                        }
 
                         // Debugging statements
                         System.Diagnostics.Debug.WriteLine($"Constructed Image URL: {imageUrl}");
                     }
+
                     // storing the productId in a hidden field for later use
                     hfProductId.Value = productId.ToString();
                 }
             }
         }
+
 
 
         protected void btnBuy_Click(object sender, EventArgs e)
@@ -329,6 +348,100 @@ namespace HopeStore.User
 
 
         //
+
+        protected void RateProduct(object sender, CommandEventArgs e)
+        {
+            if (UserIsLoggedIn())
+            {
+                int productId = Convert.ToInt32(hfProductId.Value);
+                int userId = Convert.ToInt32(Session["UserId"]);
+                int selectedRating = Convert.ToInt32(e.CommandArgument);
+
+                // Call a method to update the product rating in the Products table
+                UpdateProductRating(productId, selectedRating);
+
+                // Optionally, refresh the product details to reflect the updated rating
+                DisplayProductDetails(productId);
+            }
+            else
+            {
+                // User is not logged in, redirect to the login page
+                Response.Redirect("~/login.aspx");
+            }
+        }
+
+
+        protected void btnRate_Click(object sender, EventArgs e)
+        {
+            if (UserIsLoggedIn())
+            {
+                int productId = Convert.ToInt32(hfProductId.Value);
+                int userId = Convert.ToInt32(Session["UserId"]);
+
+                // Use int.TryParse to handle potential format issues
+                if (int.TryParse(ratingRadioButtonList.SelectedValue, out int selectedRating))
+                {
+                    // Clear any previous validation error messages
+                    txtQuantity.Text = "";
+
+                    // Temporarily disable the quantity validator
+                    rfvQuantity.Enabled = false;
+
+                    try
+                    {
+                        // Call a method to update the product rating in the Products table
+                        UpdateProductRating(productId, selectedRating);
+
+                        // Optionally, refresh the product details to reflect the updated rating
+                        DisplayProductDetails(productId);
+                    }
+                    finally
+                    {
+                        // Re-enable the quantity validator
+                        rfvQuantity.Enabled = true;
+                    }
+                }
+                else
+                {
+                    // Handle the case where the selected value is not a valid integer
+                    // This might happen if the user hasn't selected a rating
+                    // You can display an error message or take appropriate action
+                }
+            }
+            else
+            {
+                // User is not logged in, redirect to the login page
+                Response.Redirect("~/login.aspx");
+            }
+        }
+
+
+
+
+        // Add a method to update the product rating in the Products table
+        private void UpdateProductRating(int productId, int? rating)
+        {
+            // Check if the rating is not null before updating
+            if (rating.HasValue)
+            {
+                // Use the provided connection string
+                string connectionString = WebConfigurationManager.ConnectionStrings["hopedb"].ConnectionString;
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+
+                    string query = "UPDATE Products SET Rating = @Rating WHERE Product_Id = @ProductId";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@Rating", rating.Value);
+                    cmd.Parameters.AddWithValue("@ProductId", productId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
 
     }
 }
